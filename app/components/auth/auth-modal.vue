@@ -1,16 +1,10 @@
 <script setup lang="ts">
 const { mode, switchMode } = useAuthModal()
-const { login } = useAuth()
 
 const tabs = [
   { value: 'login', label: 'Вход' },
   { value: 'register', label: 'Регистрация' },
 ] as const
-
-const handleLogin = async () => {
-  login()
-  navigateTo('/profile')
-}
 </script>
 
 <template>
@@ -35,22 +29,8 @@ const handleLogin = async () => {
           {{ tab.label }}
         </button>
       </div>
-      <div class="flex flex-col gap-5">
-        <BaseField v-if="mode === 'register'" label="Имя" placeholder="Как к вам обращаться" />
-        <BaseField label="Почта" placeholder="you@example.com" />
-        <BaseField label="Пароль">
-          <template v-if="mode === 'login'" #label-action>
-            <a class="text-sm text-folder-blue">Забыли пароль?</a>
-          </template>
-        </BaseField>
-        <BaseField
-          v-if="mode === 'register'"
-          placeholder="Ещё раз пароль"
-          label="Повторите пароль"
-        />
-      </div>
-      <BaseButton @click="handleLogin" variant="primary" size="lg"> Войти </BaseButton>
-      <p class="text-center">Нет аккаунта? Зарегестрируйтесь.</p>
+      <AuthLoginForm v-if="mode === 'login'" />
+      <AuthRegisterForm v-if="mode === 'register'" />
     </div>
   </div>
 </template>

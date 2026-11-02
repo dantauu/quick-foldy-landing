@@ -9,6 +9,6 @@ const { isOpen, close } = useAuthModal()
   </main>
   <AppFooter />
   <BaseModal :open="isOpen" @update:open="close">
-    <ModalsAuthModal />
+    <AuthModal />
   </BaseModal>
 </template>
